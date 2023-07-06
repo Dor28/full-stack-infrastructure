@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+
+  frontend:
+    restart: always
+    build: ./frontend
+    ports:
+      - "8002:80"
+
+    env_file:
+      - ./frontend/.env
+
+  account_db:
+    restart: always
+    build: ./backend/account/db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./backend/account/db/.env
+
+
+  account_service:
+    restart: always
+    build: ./backend/account/service
+    ports:
+      - "8000:80"
+
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=account_db
+      - DB_PORT=5432
+
+    env_file:
+      - ./backend/account/service/.env
+
+  account_provider:
+    restart: always
+    build: ./backend/account/provider
+    ports:
+      - "8001:80"
+
+    env_file:
+      - ./backend/account/provider/.env
