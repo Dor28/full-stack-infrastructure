@@ -21,7 +21,7 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     env_file:
-      - ./backend/account/db/.env
+      - ./backend/account/service/.env
 
 
   account_service:

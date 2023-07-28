@@ -6,6 +6,7 @@ from starlette.templating import Jinja2Templates
 import dotenv
 from middlewares.auth import BasicAuthBackend, JWTAuthBackend
 
+dotenv.load_dotenv()
 
 templates = Jinja2Templates(directory='templates')
 

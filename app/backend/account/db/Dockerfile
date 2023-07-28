@@ -1,3 +1,3 @@
 FROM postgres
 COPY . ./
-#RUN sh init.sh
+RUN sh init.sh
