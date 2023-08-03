@@ -1,3 +1,4 @@
 FROM postgres
-COPY . ./
-RUN sh init.sh
+COPY ./ .
+RUN chmod +x init.sh
+RUN ./init.sh
